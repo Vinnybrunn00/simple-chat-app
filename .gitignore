@@ -45,3 +45,16 @@ app.*.map.json
 /android/app/release
 android/app/google-services.json
 lib/firebase_options.dart
+
+macos/Flutter/ephemeral/
+macos/Flutter/GeneratedPluginRegistrant.swift
+macos/Flutter/Flutter-Generated.xcconfig
+macos/Flutter/flutter_export_environment.sh
+
+macos/Flutter/ephemeral/
+macos/Flutter/Flutter-Generated.xcconfig
+macos/Flutter/flutter_export_environment.sh
+macos/Flutter/GeneratedPluginRegistrant.swift
+
+macos/Runner/GoogleService-Info.plist
+
