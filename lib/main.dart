@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:ghost/core/models/user_app.dart';
+import 'package:ghost/core/models/auth/auth_model.dart';
 import 'package:ghost/core/providers/current_platform.dart';
 import 'package:ghost/ui/pages/auth_page.dart';
 import 'package:ghost/ui/pages/home_page.dart';
@@ -41,7 +41,7 @@ class ChatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Simple',
+      title: 'Simple Chat',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
       home: choosePage(),
     );
@@ -51,9 +51,11 @@ class ChatApp extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.userChanges(),
       builder: (context, snapshot) {
-        if (snapshot.hasData) return HomePage();
+        if (snapshot.hasData) {
+          return HomePage();
+        }
         return ChangeNotifierProvider(
-          create: (context) => UserModel(),
+          create: (context) => AuthModel(),
           child: AuthPage(),
         );
       },

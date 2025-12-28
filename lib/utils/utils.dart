@@ -9,6 +9,9 @@ class Utils {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         width: MediaQuery.of(context).size.width * .9,
+        behavior: SnackBarBehavior.floating,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         content: Container(
           padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
           decoration: BoxDecoration(
@@ -24,9 +27,6 @@ class Utils {
             textAlign: TextAlign.center,
           ),
         ),
-        behavior: SnackBarBehavior.floating,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
       ),
     );
   }
