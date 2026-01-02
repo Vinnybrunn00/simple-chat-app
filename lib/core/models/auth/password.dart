@@ -15,22 +15,24 @@ class Password implements ContractUser {
       throw 'Password cannot be empty';
     }
     if (_password.length <= 10) {
-      throw 'Password too Weak, try another.';
-    }
-    if (!hasSpecialCharacter.hasMatch(_password)) {
-      throw r'Must contain at least one special character. [@#$%^&*]';
-    }
-    if (!hasLowerCase.hasMatch(_password)) {
-      throw 'Must contain at least one lowercase letter';
-    }
-    if (!hasUpperCase.hasMatch(_password)) {
-      throw 'Must contain at least one capital letter';
+      throw 'Password too weak, try another';
     }
     if (hasSpace.hasMatch(_password)) {
       throw 'The password cannot contain spaces.';
     }
-    if (!hasNumbers.hasMatch(_password)) {
-      throw 'The password must contain numbers.';
+
+    final Map<bool, String> rules = {
+      hasCharacter.hasMatch(_password):
+          r'Must contain at least one special character. [@#$%^&*]',
+      hasLowerCase.hasMatch(_password):
+          'Must contain at least one capital letter',
+      hasUpperCase.hasMatch(_password):
+          'Must contain at least one capital latter',
+      hasNumbers.hasMatch(_password): 'The password must contain numbers.',
+    };
+
+    for (final rule in rules.entries) {
+      if (!rule.key) throw rule.value;
     }
   }
 }

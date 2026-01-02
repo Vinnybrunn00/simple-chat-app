@@ -11,14 +11,15 @@ class Username implements ContractUser {
 
   @override
   void validate() {
-    if (_username.isEmpty) {
-      throw 'Username cannot be empty';
-    }
-    if (_username.length <= 5) {
-      throw 'Username too short, try another one.';
-    }
-    if (hasSpace.hasMatch(_username)) {
-      throw 'The username cannot contain spaces.';
+    final Map<bool, String> rules = {
+      _username.isEmpty: 'Username cannot be empty',
+      _username.length <= 5: 'Username too short, try another one',
+      hasSpace.hasMatch(_username): 'The username cannot contain spaces',
+    };
+    for (final rule in rules.entries) {
+      if (rule.key) {
+        throw rule.value;
+      }
     }
   }
 }

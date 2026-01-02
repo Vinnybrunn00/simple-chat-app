@@ -18,7 +18,6 @@ class AuthServices {
   final Utils _utils = Utils();
 
   Future<void> signIn() async {
-    log(_username);
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
         email: '$_username@ghost.com',
