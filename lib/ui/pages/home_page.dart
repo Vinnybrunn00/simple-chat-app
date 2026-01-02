@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:ghost/constants/app_colors.dart';
 import 'package:ghost/core/models/chat/chat_model.dart';
@@ -61,7 +59,12 @@ class _HomePageState extends State<HomePage> {
         title: Text('Chat'),
         titleTextStyle: TextStyle(color: AppColors.whiteColor, fontSize: 18),
       ),
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Color.from(
+        alpha: 1,
+        red: 0.063,
+        green: 0.063,
+        blue: 0.063,
+      ),
       body: SafeArea(
         child: Column(
           children: [

@@ -25,7 +25,6 @@ class InputMessage extends StatelessWidget {
       ),
       child: Container(
         margin: EdgeInsets.only(left: 5, right: 5, bottom: 10),
-
         decoration: BoxDecoration(
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(12),

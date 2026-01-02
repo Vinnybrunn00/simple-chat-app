@@ -2,14 +2,9 @@ import 'package:ghost/constants/regex_password.dart';
 import 'package:ghost/core/contracts/contract_user.dart';
 
 class Password implements ContractUser {
-  String _password;
+  final String _password;
 
   Password({required String password}) : _password = password;
-
-  @override
-  set setValue(String value) {
-    _password = value;
-  }
 
   @override
   String get getValue => _password;

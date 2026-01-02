@@ -19,7 +19,7 @@ class BubbleMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     return Container(
-      margin: EdgeInsets.only(top: 10, left: 8, right: 8),
+      margin: EdgeInsets.only(top: 10, left: 8, right: 8, bottom: 12),
       width: deviceSize.width * .85,
       child: Text(
         isNotMe ? '$time $username: $message' : '$time: $message',
@@ -27,6 +27,7 @@ class BubbleMessage extends StatelessWidget {
           color: isNotMe
               ? AppColors.whiteColor.withAlpha(180)
               : Colors.cyanAccent.withAlpha(180),
+          fontSize: 13,
           overflow: TextOverflow.clip,
         ),
         textAlign: isNotMe ? TextAlign.start : TextAlign.end,

@@ -1,4 +1,4 @@
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ghost/constants/app_colors.dart';
 import 'package:ghost/core/models/auth/password.dart';
@@ -15,13 +15,35 @@ class AuthPage extends StatelessWidget {
 
   final Utils _utils = Utils();
 
-  final AuthServices _services = AuthServices();
+  void _onSubmit(BuildContext context, AuthModel authModel) async {
+    try {
+      authModel.setLoading = true;
+      final Username username = Username(username: authModel.username);
+      final Password password = Password(password: authModel.password);
+
+      username.validate();
+      password.validate();
+
+      final AuthServices services = AuthServices(
+        username: username.getValue,
+        password: password.getValue,
+      );
+      authModel.isLogin ? await services.signIn() : await services.signUp();
+
+      if (!context.mounted) return;
+      _utils.pushAndRemoveUntil(context);
+    } on FirebaseException catch (messageError) {
+      _utils.showMessageError(context, message: messageError.toString());
+    } catch (messageError) {
+      _utils.showMessageError(context, message: messageError.toString());
+    } finally {
+      authModel.setLoading = false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AuthModel>(context);
-    final Username username = provider.username;
-    final Password password = provider.password;
+    final AuthModel provider = Provider.of<AuthModel>(context);
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       body: SizedBox.expand(
@@ -50,44 +72,20 @@ class AuthPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 30),
-
                 InputText(
-                  onChanged: (name) => username.setValue = name,
+                  onChanged: (name) => provider.username = name,
                   label: 'Username',
                 ),
                 SizedBox(height: 10),
                 InputText(
-                  onChanged: (passwd) => password.setValue = passwd,
+                  onChanged: (passwd) => provider.password = passwd,
                   label: 'Password',
                 ),
 
                 SizedBox(height: 15),
                 EventButton(
                   onTap: !provider.isLoading
-                      ? () async {
-                          provider.setLoading = true;
-                          try {
-                            username.validate();
-                            password.validate();
-
-                            await _services.signInAndSignup(
-                              username: username.getValue,
-                              password: password.getValue,
-                              isLogin: provider.isLogin,
-                            );
-                            if (!context.mounted) return;
-                            _utils.pushAndRemoveUntil(context);
-                          } catch (messageError) {
-                            if (!context.mounted) return;
-                            _utils.showMessageError(
-                              context,
-                              message: messageError.toString(),
-                            );
-                            provider.setLoading = false;
-                          } finally {
-                            provider.setLoading = false;
-                          }
-                        }
+                      ? () => _onSubmit(context, provider)
                       : null,
                   title: provider.isLogin ? 'LogIn' : 'Signup',
                   color: AppColors.pupleLowColor,

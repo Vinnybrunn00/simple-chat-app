@@ -19,6 +19,10 @@ void main() async {
     final Size size = Size(700, 700);
 
     final WindowOptions windowOptions = WindowOptions(
+      titleBarStyle: TitleBarStyle.normal,
+      backgroundColor: Colors.black,
+      title: 'Simple-Chat',
+      windowButtonVisibility: false,
       size: size,
       center: true,
       minimumSize: size,
@@ -41,6 +45,7 @@ class ChatApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Simple Chat',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
       home: choosePage(),

@@ -35,7 +35,7 @@ class Utils {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (_) => HomePage()),
-      (_) => false,
+      (route) => route.isFirst,
     );
   }
 
