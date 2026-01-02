@@ -54,42 +54,4 @@ class AuthServices {
       throw error.message ?? 'Invalid Argument';
     }
   }
-
-  Future<void> signInAndSignup({
-    required String username,
-    required String password,
-    required bool isLogin,
-  }) async {
-    try {
-      if (isLogin) {
-        await _firebaseAuth.signInWithEmailAndPassword(
-          email: '$username@ghost.com',
-          password: password,
-        );
-        return;
-      }
-
-      UserCredential userCredential = await _firebaseAuth
-          .createUserWithEmailAndPassword(
-            email: '$username@ghost.com',
-            password: password,
-          );
-
-      final User? user = userCredential.user;
-
-      if (user != null) {
-        await user.updateDisplayName(username);
-
-        await _firestore.collection('users').doc(user.uid).set({
-          'id': user.uid,
-          'username': username,
-          'password': password,
-          'createAccount': _utils.dateCreateAccountUser(),
-        });
-      }
-      return;
-    } on FirebaseAuthException catch (err) {
-      throw err.message ?? 'Invalid Argument';
-    }
-  }
 }
