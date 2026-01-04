@@ -48,6 +48,23 @@ class _HomePageState extends State<HomePage> {
     _scroller();
   }
 
+  void _sendMessage(BuildContext context, UserChatModel userChatModel) async {
+    try {
+      _textEditingController.clear();
+      final String msg = userChatModel.message;
+      final Message message = Message(message: msg);
+      message.validate();
+      await userChatModel.sendMessage(msg);
+      _scroller();
+
+      if (!context.mounted) return;
+    } on FirebaseException catch (messageError) {
+      _utils.showMessageError(context, message: messageError.toString());
+    } catch (messageError) {
+      _utils.showMessageError(context, message: messageError.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final Message message = _userChatModel.message;
