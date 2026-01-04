@@ -1,12 +1,9 @@
 import 'package:ghost/core/contracts/contract_user.dart';
 
 class Message implements ContractUser {
-  String _message = '';
+  final String _message;
 
-  @override
-  set setValue(String value) {
-    _message = value;
-  }
+  Message({required String message}) : _message = message;
 
   @override
   String get getValue => _message;

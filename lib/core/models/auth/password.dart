@@ -14,9 +14,7 @@ class Password implements ContractUser {
     if (_password.isEmpty) {
       throw 'Password cannot be empty';
     }
-    if (_password.length <= 10) {
-      throw 'Password too weak, try another';
-    }
+ 
     if (hasSpace.hasMatch(_password)) {
       throw 'The password cannot contain spaces.';
     }

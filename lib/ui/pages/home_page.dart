@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ghost/constants/app_colors.dart';
 import 'package:ghost/core/models/chat/chat_model.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _textEditingController = TextEditingController();
 
-  void _scrollToBottom() {
+  void _scrollToBottom() async {
     if (_scrollController.hasClients) {
       await _scrollController.animateTo(
         _scrollController.position.maxScrollExtent,
@@ -36,10 +37,6 @@ class _HomePageState extends State<HomePage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollToBottom();
     });
-  }
-
-  void _onScroll() {
-    _scroller();
   }
 
   @override
@@ -67,7 +64,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final Message message = _userChatModel.message;
     final viewInsetsButton = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
       resizeToAvoidBottomInset: true,

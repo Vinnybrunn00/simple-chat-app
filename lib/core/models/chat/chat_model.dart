@@ -6,16 +6,16 @@ import 'package:ghost/core/models/chat/message.dart';
 import 'package:intl/intl.dart' as intl;
 
 class UserChatModel {
-  Message message = Message();
+  String message = '';
 
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  User? get currentUser => _firebaseAuth.currentUser;
+  User? get _currentUser => _firebaseAuth.currentUser;
 
-  String? get displayName => currentUser?.displayName;
+  String? get uid => _currentUser?.uid;
 
-  String? get uid => currentUser?.uid;
+  String? get _displayName => _currentUser?.displayName;
 
   int get _messageId {
     final math.Random random = math.Random();
@@ -48,7 +48,7 @@ class UserChatModel {
     try {
       await _messages.doc('$_messageId').set({
         'uid': uid,
-        'username': displayName,
+        'username': _displayName,
         'message': message,
         'time': DateTime.now(),
         'timestamp': _timeStampMessage,
