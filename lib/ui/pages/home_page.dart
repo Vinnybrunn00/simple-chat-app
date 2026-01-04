@@ -103,8 +103,7 @@ class _HomePageState extends State<HomePage> {
 
                   return ListView.builder(
                     controller: _scrollController,
-                    keyboardDismissBehavior:
-                        ScrollViewKeyboardDismissBehavior.onDrag,
+                    keyboardDismissBehavior: .onDrag,
                     shrinkWrap: true,
                     itemCount: docs.length,
                     itemBuilder: (context, index) {
