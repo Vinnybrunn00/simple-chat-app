@@ -53,11 +53,11 @@ class _HomePageState extends State<HomePage> {
       await userChatModel.sendMessage(message.getValue);
       _scroller();
       userChatModel.message = '';
-
-      if (!context.mounted) return;
     } on FirebaseException catch (messageError) {
+      if (!context.mounted) return;
       _utils.showMessageError(context, message: messageError.toString());
     } catch (messageError) {
+      if (!context.mounted) return;
       _utils.showMessageError(context, message: messageError.toString());
     }
   }
