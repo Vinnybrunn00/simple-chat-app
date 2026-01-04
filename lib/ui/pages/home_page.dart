@@ -48,11 +48,11 @@ class _HomePageState extends State<HomePage> {
   void _sendMessage(BuildContext context, UserChatModel userChatModel) async {
     try {
       _textEditingController.clear();
-      final String msg = userChatModel.message;
-      final Message message = Message(message: msg);
+      final Message message = Message(message: userChatModel.message);
       message.validate();
-      await userChatModel.sendMessage(msg);
+      await userChatModel.sendMessage(message.getValue);
       _scroller();
+      userChatModel.message = '';
 
       if (!context.mounted) return;
     } on FirebaseException catch (messageError) {
