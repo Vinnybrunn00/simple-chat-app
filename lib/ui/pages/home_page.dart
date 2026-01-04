@@ -136,21 +136,8 @@ class _HomePageState extends State<HomePage> {
               ),
               child: InputMessage(
                 controller: _textEditingController,
-                onChanged: (msg) => message.setValue = msg,
-                sendMessage: () async {
-                  _textEditingController.clear();
-                  try {
-                    message.validate();
-                    await _userChatModel.sendMessage(message.getValue);
-                    _onScroll();
-                  } catch (messageError) {
-                    if (!context.mounted) return;
-                    _utils.showMessageError(
-                      context,
-                      message: messageError.toString(),
-                    );
-                  }
-                },
+                onChanged: (msg) => _userChatModel.message = msg,
+                sendMessage: () async => _sendMessage(context, _userChatModel),
               ),
             ),
           ],
